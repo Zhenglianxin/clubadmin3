@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -15,11 +15,23 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },{
+    path: "/totalAssets",
+    name: "TotalAssets",
+    component: () =>
+      import(/* webpackChunkName: "publish" */ "../views/TotalAssets.vue"),
+    meta: {
+      title: "总资产",
+    },
+    props: (route) => ({
+      userId: route.query.userId,
+      aId: route.query.aId,
+    }),
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
 
