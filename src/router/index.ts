@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -13,13 +13,21 @@ const routes: Array<RouteRecordRaw> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },{
+    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    path: "/soldCardSetting",
+    name: "SoldCardSetting",
+    component: () => import(/* webpackChunkName: "about" */ "../views/SoldCardSetting.vue"),
+    meta: {
+      title: "售卡设置",
+    },
+    props: (route) => ({ clubId: route.query.clubId }),
+  },
+  {
     path: "/totalAssets",
     name: "TotalAssets",
-    component: () =>
-      import(/* webpackChunkName: "publish" */ "../views/TotalAssets.vue"),
+    component: () => import(/* webpackChunkName: "publish" */ "../views/TotalAssets.vue"),
     meta: {
       title: "总资产",
     },

@@ -2,9 +2,9 @@ import { Toast } from "vant"; // 提示
 import axios from "axios";
 import store from "../store";
 
-let real_api:string = "";
-let venue_api:string = "https://test.popbadminton.com/venueapi";
-let venueUploadImgUrl:string = "https://test.popbadminton.com/pan";
+let real_api = "https://test.popbadminton.com";
+let venue_api = "https://test.popbadminton.com/venueapi";
+let venueUploadImgUrl = "https://test.popbadminton.com/pan";
 
 if (window.location.host.indexOf("dev") !== -1) {
   real_api = "https://dev.popbadminton.com";
@@ -62,48 +62,45 @@ const service = axios.create({
 });
 // 添加请求拦截器
 venueService.interceptors.request.use(
-  function (config:any) {
+  function (config: any) {
     console.log(config);
-    config.headers.Authorization =
-      sessionStorage.getItem("accessToken") || "";
+    config.headers.Authorization = sessionStorage.getItem("accessToken") || "";
     // 在发送请求之前做些什么
     // 登陆路径不刷新token
     Toast.loading({
-        // message: '加载中...',
-        forbidClick: true,
+      // message: '加载中...',
+      forbidClick: true,
     });
     return config;
   },
-  function (error:any) {
+  function (error: any) {
     // 对请求错误做些什么
     return Promise.reject(error);
   }
 );
 service.interceptors.request.use(
-  function (config:any) {
+  function (config: any) {
     console.log(config);
 
-    config.headers.token =
-      sessionStorage.getItem("token") || "";
-    config.headers.openid =
-      sessionStorage.getItem("openid") || "";
+    config.headers.token = sessionStorage.getItem("token") || "";
+    config.headers.openid = sessionStorage.getItem("openid") || "";
     // 在发送请求之前做些什么
     // 登陆路径不刷新token
     Toast.loading({
-        // message: '加载中...',
-        forbidClick: true,
+      // message: '加载中...',
+      forbidClick: true,
     });
     return config;
   },
-  function (error:any) {
+  function (error: any) {
     // 对请求错误做些什么
     return Promise.reject(error);
-  }
+  },
 );
 
 interface responseConfig {
-    status: Number,
-    data: any
+  status: number;
+  data: any;
 }
 // 添加响应拦截器
 venueService.interceptors.response.use(
@@ -128,10 +125,10 @@ venueService.interceptors.response.use(
       return Promise.reject(new Error(message));
     }
   },
-  function (error:any) {
+  function (error: any) {
     Toast.clear();
     return Promise.reject(error);
-  }
+  },
 );
 service.interceptors.response.use(
   function (responseConfig: responseConfig): any {
@@ -157,10 +154,10 @@ service.interceptors.response.use(
       return Promise.reject(new Error(message));
     }
   },
-  function (error:any) {
+  function (error: any) {
     Toast.clear();
     return Promise.reject(error);
-  }
+  },
 );
 
 export default { service, vUploadService, venueService };
