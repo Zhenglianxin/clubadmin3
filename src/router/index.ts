@@ -16,6 +16,15 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
+    path: "/soldCardSetting",
+    name: "SoldCardSetting",
+    component: () => import(/* webpackChunkName: "about" */ "../views/SoldCardSetting.vue"),
+    meta: {
+      title: "售卡设置",
+    },
+    props: (route) => ({ clubId: route.query.clubId }),
+  },
+  {
     path: "/totalAssets",
     name: "TotalAssets",
     component: () => import(/* webpackChunkName: "publish" */ "../views/TotalAssets.vue"),
